@@ -35,6 +35,6 @@ public class CustomersServiceClient {
         return webClientBuilder.build().get()
             .uri("http://customers-service/owners/{ownerId}", ownerId)
             .retrieve()
-            .bodyToMono(OwnerDetails.class);
+            .bodyToMono(OwnerDetails.class); // Martin, TODO: what happens if the Owner object in the customerservices changes?
     }
 }
