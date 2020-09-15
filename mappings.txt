@@ -30,4 +30,30 @@
 
 4. api-gateway - contains an example of load balanced calls to other services in the ApiGatewayController class (at least to our understanding)
 @RequestMapping("/api/gateway")
-@GetMapping(value = "owners/{ownerId}") - uses
+@GetMapping(value = "owners/{ownerId}") - why is this here? Is it to demonstrate the ReactiveCircuitBreaker API?
+
+Gateway contains an application.yml in which the routes are defined
+/api/vet/** -> vets-service
+/api/visit/** -> visits-service
+/api/customer/** -> customer-service
+
+
+### Reactive Programming
+Reactive Programming is a new paradigm in which you use declarative code (in a manner that is similar to functional programming) in order to build asynchronous processing pipelines. It is an event-based model where data is pushed to the consumer, as it becomes available: we deal with asynchronous sequences of events.
+
+### Analyzing dependencies between Spring Boot microservices
+
+## Typical ways to create HTTP Requests in Spring Boot
+* create the HTTP requests in the UI
+* create HTTP requests in the program code, e.g., using WebClient.Builder (replacing RestTemplate) or other libraries to create requests, such as Feign
+* use message queues, such as RabbitMQ
+
+## Typical ways to handle HTTP Requests in Spring Boot
+* using @RestController and @RequestMapping and @Get/Post/Put/DeleteMapping(value="")
+- they map the request to a particular method in a class to handle that request
+
+* API Gateway pattern - uses application.yml to configure the routes and add spring-cloud-starter-gateway artefact in POM file
+- they map requests received by the API Gateway to the service to handle that request
+
+
+How are asynchronous calls made?

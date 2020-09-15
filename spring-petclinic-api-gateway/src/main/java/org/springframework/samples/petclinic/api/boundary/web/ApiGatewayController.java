@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.api.boundary.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.samples.petclinic.api.application.CustomersServiceClient;
@@ -37,6 +38,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/gateway")
+@Slf4j
 public class ApiGatewayController {
 
     private final CustomersServiceClient customersServiceClient;
@@ -47,7 +49,8 @@ public class ApiGatewayController {
 
     @GetMapping(value = "owners/{ownerId}")
     public Mono<OwnerDetails> getOwnerDetails(final @PathVariable int ownerId) {
-        return customersServiceClient.getOwner(ownerId)
+        log.info("called APIGatewayController getOwnerDetails(...)");
+        Mono<OwnerDetails> result = customersServiceClient.getOwner(ownerId)
             .flatMap(owner ->
                 visitsServiceClient.getVisitsForPets(owner.getPetIds())
                     .transform(it -> {
@@ -55,8 +58,17 @@ public class ApiGatewayController {
                         return cb.run(it, throwable -> emptyVisitsForPets());
                     })
                     .map(addVisitsToOwner(owner))
-            );
+            )
+            .doOnNext(x -> log.info("Juhuuuu"));
 
+        log.info("Continuing wail waiting the request to be finished");
+//        result.doOnSuccess((ownerDetails) -> {
+//            log.info("Customer name: " + ownerDetails.getFirstName());
+//        });
+        result.doOnNext(ownerDetails -> log.info("Juhuuuu 33333"));
+        log.info("Continuing after log output");
+
+        return result;
     }
 
     private Function<Visits, OwnerDetails> addVisitsToOwner(OwnerDetails owner) {

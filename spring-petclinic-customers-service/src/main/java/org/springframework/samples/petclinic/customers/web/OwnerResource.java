@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Juergen Hoeller
@@ -57,6 +58,13 @@ class OwnerResource {
      */
     @GetMapping(value = "/{ownerId}")
     public Optional<Owner> findOwner(@PathVariable("ownerId") int ownerId) {
+        log.info("called findOwner(...) of customers service");
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return ownerRepository.findById(ownerId);
     }
 
