@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.samples.petclinic.vets.model.Specialty;
 import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
 import org.springframework.web.bind.annotation.*;
@@ -64,12 +65,6 @@ class VetResource {
     @GetMapping(value = "/{vetId}")
     public Optional<Vet> findVet(@PathVariable("vetId") int vetId) {
         log.info("called findVet(...)");
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         return vetRepository.findById(vetId);
     }
 
@@ -86,6 +81,7 @@ class VetResource {
         // This is done by hand for simplicity purpose. In a real life use-case we should consider using MapStruct.
         vetModel.setFirstName(vetRequest.getFirstName());
         vetModel.setLastName(vetRequest.getLastName());
+        vetModel.replaceAllSpecialties(vetRequest.getSpecialties());
         log.info("Saving vet {}", vetModel);
         vetRepository.save(vetModel);
     }

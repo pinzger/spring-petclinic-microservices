@@ -113,4 +113,11 @@ public class Vet {
         getSpecialtiesInternal().add(specialty);
     }
 
+    public void replaceAllSpecialties(List<Specialty> specialties) {
+        this.specialties = null;
+        for (Specialty specialty : specialties) {
+            getSpecialtiesInternal().add(specialty);
+        }
+    }
+
 }

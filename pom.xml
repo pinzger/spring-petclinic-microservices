@@ -22,7 +22,7 @@
         <module>spring-petclinic-visits-service</module>
         <module>spring-petclinic-config-server</module>
         <module>spring-petclinic-discovery-server</module>
-        <module>spring-petclinic-api-gateway</module>
+<!--        <module>spring-petclinic-api-gateway</module>-->
         <module>spring-petclinic-api-gateway-angular8</module>
     </modules>
 
