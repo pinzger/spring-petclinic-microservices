@@ -10,9 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework.samples.petclinic.api</groupId>
-    <artifactId>spring-petclinic-api-gateway-angular8</artifactId>
+    <artifactId>spring-petclinic-api-gateway-angular</artifactId>
     <packaging>jar</packaging>
-    <description>Spring PetClinic API Gateway</description>
+    <description>Spring PetClinic Angular API Gateway</description>
 
     <dependencies>
 
@@ -38,10 +38,10 @@
     </dependency>
 
     <!-- Spring Cloud -->
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--        <groupId>org.springframework.cloud</groupId>-->
+<!--        <artifactId>spring-cloud-sleuth-zipkin</artifactId>-->
+<!--    </dependency>-->
     <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>

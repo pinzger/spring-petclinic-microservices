@@ -73,6 +73,7 @@ class OwnerResource {
      */
     @GetMapping
     public List<Owner> findAll() {
+        log.info("called findAll() of customers service");
         return ownerRepository.findAll();
     }
 
@@ -82,6 +83,7 @@ class OwnerResource {
     @PutMapping(value = "/{ownerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateOwner(@PathVariable("ownerId") int ownerId, @Valid @RequestBody Owner ownerRequest) {
+        log.info("called updateOwner(...)");
         final Optional<Owner> owner = ownerRepository.findById(ownerId);
 
         final Owner ownerModel = owner.orElseThrow(() -> new ResourceNotFoundException("Owner "+ownerId+" not found"));
@@ -94,4 +96,20 @@ class OwnerResource {
         log.info("Saving owner {}", ownerModel);
         ownerRepository.save(ownerModel);
     }
+
+    /**
+     * Delete Owner
+     */
+    @DeleteMapping(value = "/{ownderId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOwner(@PathVariable("ownerId") int ownerId, @Valid @RequestBody Owner ownerRequest) {
+        log.info("called deteldOwner(...)");
+        final Optional<Owner> owner = ownerRepository.findById(ownerId);
+
+        final Owner ownerModel = owner.orElseThrow(() -> new ResourceNotFoundException("Owner "+ownerId+" not found"));
+        // This is done by hand for simplicity purpose. In a real life use-case we should consider using MapStruct.
+        log.info("Deleting owner {}", ownerModel);
+        ownerRepository.delete(ownerModel);
+    }
+
 }

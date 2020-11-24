@@ -13,27 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.api.dto;
+package org.springframework.samples.petclinic.angularapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author Maciej Szarlinski
  */
 @Data
-public class PetDetails {
+public class OwnerDetails {
 
     private int id;
 
-    private String name;
+    private String firstName;
 
-    private String birthDate;
+    private String lastName;
 
-    private PetType type;
+    private String address;
 
-    private final List<VisitDetails> visits = new ArrayList<>();
+    private String city;
 
+    private String telephone;
+
+    private final List<PetDetails> pets = new ArrayList<>();
+
+    @JsonIgnore
+    public List<Integer> getPetIds() {
+        return pets.stream()
+            .map(PetDetails::getId)
+            .collect(toList());
+    }
 }

@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.api.dto;
+package org.springframework.samples.petclinic.angularapi.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Maciej Szarlinski
  */
 @Data
-@NoArgsConstructor
-public class VisitDetails {
+public class PetDetails {
 
-    private Integer id = null;
+    private int id;
 
-    private Integer petId = null;
+    private String name;
 
-    private String date = null;
+    private String birthDate;
 
-    private String description = null;
+    private PetType type;
+
+    private final List<VisitDetails> visits = new ArrayList<>();
+
 }

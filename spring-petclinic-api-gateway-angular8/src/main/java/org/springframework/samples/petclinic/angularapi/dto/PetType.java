@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.api.dto;
+package org.springframework.samples.petclinic.angularapi.dto;
 
-import lombok.Value;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
 
 /**
  * @author Maciej Szarlinski
  */
-@Value
-public class Visits {
+@Data
+public class PetType {
 
-    private List<VisitDetails> items = new ArrayList<>();
-
+    private String name;
 }

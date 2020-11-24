@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.api;
+package org.springframework.samples.petclinic.angularapi;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
@@ -44,10 +44,10 @@ import java.time.Duration;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ApiGatewayApplication {
+public class AngularApiGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiGatewayApplication.class, args);
+        SpringApplication.run(AngularApiGatewayApplication.class, args);
     }
 
     @Bean

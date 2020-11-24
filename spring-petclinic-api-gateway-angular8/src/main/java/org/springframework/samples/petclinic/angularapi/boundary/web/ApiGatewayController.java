@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.api.boundary.web;
+package org.springframework.samples.petclinic.angularapi.boundary.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
-import org.springframework.samples.petclinic.api.application.CustomersServiceClient;
-import org.springframework.samples.petclinic.api.application.VisitsServiceClient;
-import org.springframework.samples.petclinic.api.dto.OwnerDetails;
-import org.springframework.samples.petclinic.api.dto.Visits;
+import org.springframework.samples.petclinic.angularapi.application.CustomersServiceClient;
+import org.springframework.samples.petclinic.angularapi.application.VisitsServiceClient;
+import org.springframework.samples.petclinic.angularapi.dto.OwnerDetails;
+import org.springframework.samples.petclinic.angularapi.dto.Visits;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,15 +58,14 @@ public class ApiGatewayController {
                         return cb.run(it, throwable -> emptyVisitsForPets());
                     })
                     .map(addVisitsToOwner(owner))
-            )
-            .doOnNext(x -> log.info("Juhuuuu"));
+            );
 
-        log.info("Continuing wail waiting the request to be finished");
-//        result.doOnSuccess((ownerDetails) -> {
-//            log.info("Customer name: " + ownerDetails.getFirstName());
-//        });
-        result.doOnNext(ownerDetails -> log.info("Juhuuuu 33333"));
-        log.info("Continuing after log output");
+//        log.info("Continuing wail waiting the request to be finished");
+////        result.doOnSuccess((ownerDetails) -> {
+////            log.info("Customer name: " + ownerDetails.getFirstName());
+////        });
+//        result.doOnNext(ownerDetails -> log.info("Juhuuuu 33333"));
+//        log.info("Continuing after log output");
 
         return result;
     }
