@@ -1,3 +1,12 @@
+# dependencies
+/node_modules
+
+# compiled output
+dist
+tmp
+out-tsc
+static
+
 # Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -19,3 +28,11 @@ generated/
 
 # codeMR
 codemr/
+
+# e2e
+e2e/*.js
+e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
