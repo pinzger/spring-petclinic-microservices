@@ -24,6 +24,7 @@
         <module>spring-petclinic-discovery-server</module>
 <!--        <module>spring-petclinic-api-gateway</module>-->
         <module>spring-petclinic-api-gateway-angular8</module>
+        <module>spring-petclinic-angular</module>
     </modules>
 
     <properties>
