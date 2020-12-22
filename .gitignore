@@ -1,5 +1,9 @@
 # dependencies
 node_modules/
+node/
+
+# zipkin
+zipkin.jar.*
 
 # compiled output
 dist/
