@@ -43,43 +43,53 @@ class PetResource {
 
     @PostMapping("/owners/{ownerId}/pets")
     @ResponseStatus(HttpStatus.CREATED)
-    public Pet processCreationForm(
-        @RequestBody PetRequest petRequest,
-        @PathVariable("ownerId") int ownerId) {
+    public Pet createPet(@PathVariable("ownerId") int ownerId,
+        @RequestBody PetRequest petRequest) {
 
         final Pet pet = new Pet();
         final Optional<Owner> optionalOwner = ownerRepository.findById(ownerId);
         Owner owner = optionalOwner.orElseThrow(() -> new ResourceNotFoundException("Owner "+ownerId+" not found"));
         owner.addPet(pet);
+//        pet.setOwner(owner);
 
         return save(pet, petRequest);
     }
 
     @PutMapping("/owners/*/pets/{petId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void processUpdateForm(@RequestBody PetRequest petRequest) {
-        int petId = petRequest.getId();
-        Pet pet = findPetById(petId);
+    public void updatePet(@PathVariable("petId") int petId, @RequestBody PetRequest petRequest) {
+        log.info("called updatePet(...)");
+        final Pet pet = findPetById(petId);
+
         save(pet, petRequest);
     }
 
     private Pet save(final Pet pet, final PetRequest petRequest) {
+        log.info("called save(...)");
 
         pet.setName(petRequest.getName());
         pet.setBirthDate(petRequest.getBirthDate());
 
-        petTypeRepository.findById(petRequest.getTypeId())
-            .ifPresent(pet::setType);
+        final Optional<PetType> optionalPetType = petTypeRepository.findById(petRequest.getTypeId());
+        final PetType petType = optionalPetType.orElseThrow(() -> new ResourceNotFoundException("PetType "+petRequest.getTypeId()+" not found"));
+        pet.setType(petType);
 
         log.info("Saving pet {}", pet);
         return petRepository.save(pet);
     }
 
+//    @GetMapping("owners/*/pets/{petId}")
+//    public Pet findPet(@PathVariable("petId") int petId) {
+//
+//        return new PetDetails(findPetById(petId));
+//    }
+
     @GetMapping("owners/*/pets/{petId}")
     public PetDetails findPet(@PathVariable("petId") int petId) {
+        log.info("called findPet(...) of customers service");
+//        Optional<Pet> pet = petRepository.findById(petId);
         return new PetDetails(findPetById(petId));
     }
-
 
     private Pet findPetById(int petId) {
         Optional<Pet> pet = petRepository.findById(petId);

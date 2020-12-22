@@ -33,7 +33,7 @@ class PetDetails {
 
     private String name;
 
-    private String owner;
+    private Integer ownerId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
@@ -43,7 +43,7 @@ class PetDetails {
     PetDetails(Pet pet) {
         this.id = pet.getId();
         this.name = pet.getName();
-        this.owner = pet.getOwner().getFirstName() + " " + pet.getOwner().getLastName();
+        this.ownerId = pet.getOwner().getId();
         this.birthDate = pet.getBirthDate();
         this.type = pet.getType();
     }
